@@ -306,7 +306,7 @@ class GetUserSPNs:
                         tgs, cipher, oldSessionKey, sessionKey = getKerberosTGS(serverName, self.__domain,
                                                                                 self.__kdcHost,
                                                                                 TGT['KDC_REP'], TGT['cipher'],
-                                                                                TGT['sessionKey'])
+                                                                                TGT['sessionKey'], constants.EncryptionTypes.rc4_hmac.value)
                         self.outputTGS(tgs, oldSessionKey, sessionKey, user, SPN, fd)
                     except Exception , e:
                         logging.error(str(e))

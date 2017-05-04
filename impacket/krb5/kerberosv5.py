@@ -275,7 +275,7 @@ def getKerberosTGT(clientName, password, domain, lmhash, nthash, aesKey='', kdcH
 
     return tgt, cipher, key, sessionKey
 
-def getKerberosTGS(serverName, domain, kdcHost, tgt, cipher, sessionKey):
+def getKerberosTGS(serverName, domain, kdcHost, tgt, cipher, sessionKey, tgsCipher):
 
     # Decode the TGT
     try:
@@ -350,8 +350,7 @@ def getKerberosTGS(serverName, domain, kdcHost, tgt, cipher, sessionKey):
     reqBody['nonce'] = random.getrandbits(31)
     seq_set_iter(reqBody, 'etype',
                       (
-                          int(constants.EncryptionTypes.rc4_hmac.value),
-                          int(constants.EncryptionTypes.des3_cbc_sha1_kd.value),
+                          int(tgsCipher),
                           int(cipher.enctype)
                        )
                 )

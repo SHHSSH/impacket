@@ -3074,7 +3074,8 @@ class SMB:
 
         if TGS is None:
             serverName = Principal('cifs/%s' % self.__remote_name, type=constants.PrincipalNameType.NT_SRV_INST.value)
-            tgs, cipher, oldSessionKey, sessionKey = getKerberosTGS(serverName, domain, kdcHost, tgt, cipher, sessionKey)
+            tgsCipher = constants.EncryptionTypes.rc4_hmac.value
+            tgs, cipher, oldSessionKey, sessionKey = getKerberosTGS(serverName, domain, kdcHost, tgt, cipher, sessionKey, tgsCipher)
         else:
             tgs = TGS['KDC_REP']
             cipher = TGS['cipher']

@@ -752,7 +752,8 @@ class MSSQL:
                 #         instancename is the name of the SQL Server instance.
                 serverName = Principal('MSSQLSvc/%s.%s:%d' % (self.server, domain, self.port), type=constants.PrincipalNameType.NT_SRV_INST.value)
                 try:
-                    tgs, cipher, oldSessionKey, sessionKey = getKerberosTGS(serverName, domain, kdcHost, tgt, cipher, sessionKey)
+                    tgs, cipher, oldSessionKey, sessionKey = getKerberosTGS(serverName, domain, kdcHost, tgt, cipher,
+										sessionKey, constants.EncryptionTypes.rc4_hmac.value)
                 except KerberosError, e:
                     if e.getErrorCode() == constants.ErrorCodes.KDC_ERR_ETYPE_NOSUPP.value:
                         # We might face this if the target does not support AES
